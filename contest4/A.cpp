@@ -24,10 +24,10 @@ public:
 	{
 		for (size_t j = 1; j < Table.size(); j++)
 		{
-			Table[j].resize(Table[0].size() - pow(2, j) + 1);
+			Table[j].resize(Table[0].size() - (1 << j) + 1);
 			for (size_t i = 0; i < Table[j].size(); i++)
 			{
-				Table[j][i] = MinT(Table[j - 1][i], Table[j - 1][i + pow(2, (j-1))]);
+				Table[j][i] = MinT(Table[j - 1][i], Table[j - 1][i + (1 << (j-1)))]);
 			}
 		}
 	}
@@ -35,7 +35,7 @@ public:
 	pair<int, int> Request(size_t left, size_t right)
 	{
 		size_t j = log2(right - left);
-		return MinT(Table[j][left], Table[j][right + 1 - pow(2,j)]);
+		return MinT(Table[j][left], Table[j][right + 1 - (1 << j)]);
 	}
 private:
 	vector<vector<pair<int, int>>> Table;
